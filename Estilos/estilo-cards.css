@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    margin-top: 65px;
+    padding: 1rem 1rem;
+    min-height: calc(100vh - 90px);
+}
+
+.cards{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+    margin-top: 1rem;
+}
+
+.card-single {
+    border: none;
+    box-shadow: 1px 1px 5px rgb(211, 67, 67);
+    padding: 2rem;
+    border-radius: 5px;
+    text-align: center;
+    transition: .3s;
+}
+.card-single:hover{
+    box-shadow: 1px 1px 10px rgb(223, 14, 14);
+}
+.card-single .tarjeta{
+    transition: .4s;
+}
+.card-single:hover .tarjeta{
+    transform: scale(1.3);
+}
+.card-single span{
+    font-size: 25px;
+    font-weight: bold;
+    color: #000;
+}
+.ingresos{
+    background-color: #fff;
+    cursor: pointer;
+}
+.egresos{
+    background-color: #fff;
+    cursor: pointer;
+}
+.ganacias{
+    background-color: #fff;
+    cursor: pointer;
+}
+.caja{
+    background-color: #fff;
+    cursor: pointer;
+}

@@ -1,0 +1,69 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+body{
+    font-family: 'Lato', sans-serif;
+}
+.sidebar{
+    width: 260px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #051c4b;
+    z-index: 100;
+    transition: width 300ms;
+    box-shadow: 0px 0px 10px 10px #051c4b;
+}
+.sidebar-brand{
+    height: 80px;
+    padding: 1rem 0rem 1rem 1.8rem;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+
+.sidebar-brand span {
+    font-size: 1.8rem;
+    display: inline-block;
+}
+.sidebar-brand:hover {
+    color: rgb(235, 235, 235);
+}
+.sidebar-menu {
+    margin-top: 2rem;
+}
+.sidebar-menu li{
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 0rem;
+}
+.sidebar-menu a{
+    padding-left: 1rem;
+    display: block;
+    color: #fff;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    padding-top: 1rem;
+    padding-bottom: 1.3rem;
+}
+.sidebar-menu a span:first-child{
+    font-size: 1.8rem;
+    padding-right: 1rem;
+}
+.sidebar-menu a.active:hover{
+    background: rgb(243, 238, 238);
+    color: #222;
+    transition: .8s;
+}
+.sidebar-menu li a.active, .sidebar-menu li a:hover{
+    background: rgb(243, 238, 238);
+    color: #222;
+    border-radius: 50px 50px 50px 50px;
+    transition: .8s;
+}
