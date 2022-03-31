@@ -131,8 +131,17 @@ header label i{
     width: 20%;
 }
 .form button{
-    padding: 10px 15px 10px 15px;
+    padding: 15px 20px 15px 20px;
     margin-top: 10px;
     cursor: pointer;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    color: #fff;
+    background: #13991e;
+    border: none;
+    font-size: 15px;
 }
 
