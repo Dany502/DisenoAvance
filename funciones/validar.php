@@ -5,26 +5,25 @@ $password=$_POST['pass'];
 
 include("../conexion/conexion.php");
 
-$consulta="SELECT id, correo, contraseña FROM usuarios WHERE correo='$correo' AND contraseña='$pass'";
-$resultado=mysqli_query($conexion,$consulta);
+$sql="SELECT id, correo, contraseña FROM usuarios WHERE correo='$correo' AND contraseña='$password'";
+$result=mysqli_query($conexion,$sql);
+if($row=$result->fetch_assoc()){
+    $id=$row['id'];
+    $email=$row['correo'];
+    $pass=$row['contraseña'];
 
-    if($row=$resultado->fetch_assoc()){
-        $id=$row['id'];
-        $usuario=$row['correo'];
-        $pass=$row['contraseña'];
-
-        if($usuario=$correo && $pass=$password){
-            $response = array(
-                'response' => 'true',
-            );
-            
-        }
-
-    }else{
-        $response = array(
-            'response' => 'false'
+    if($email=$correo && $pass=$password){
+        session_start();
+        $_SESSION['usuario']=$id;
+        $response = array (
+            'response' => 'true',
         );
-        
     }
 
-echo json_encode($response);
+}else{
+    $response = array (
+        'response' => 'false',
+    );
+}
+
+die (json_encode($response));

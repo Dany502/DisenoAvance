@@ -125,3 +125,20 @@ justify-content: center;
     
 
 }
+.alert{
+    background: rgba(247, 162, 162,0.5);
+    font-weight: 500;
+    font-size: 18px;
+    color: rgb(250, 28, 28);
+    width: 75%;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border: 1px solid rgb(252, 144, 144);
+    display: none;
+}
+.alert.active{
+    display: initial;
+}
