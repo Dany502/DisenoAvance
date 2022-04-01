@@ -29,7 +29,6 @@
     <div class="sidebar">
         <div class="sidebar-brand">
             <p>
-                <span><img src="Img/analitica.png" width="45px" height="45px"></span><br>
                 <span>Menu principal</span>
             </p>
         </div>
