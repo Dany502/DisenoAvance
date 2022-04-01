@@ -1,5 +1,7 @@
-const $btnServicio = document.getElementById('btnServicio');
-const $formulario = document.getElementById('Formulario1');
+const $btnServicio = document.getElementById('btnServicio'),
+    $formulario = document.getElementById('Formulario1'),
+    $formularioGastos = document.getElementById('Formulario2'),
+    $btnGasto = document.getElementById('btnGasto');
 
 //informacion extraida automaticamente para las fechas
 let fechaS = new Date(),
@@ -57,3 +59,44 @@ $btnServicio.addEventListener("click", (e) =>{
     
         
 });
+
+$btnGasto.addEventListener("click",(e) =>{
+    let datosGastos = {
+        'gasto' : $formularioGastos.gasto.value,
+        'total' : $formularioGastos.total2.value,
+        'fechaActual' : fechaActual,
+        'dia' : dia,
+        'mes' : mes,
+        'anio' : anio
+    };
+    $.ajax({
+        url:"./funciones/registrarGastos.php",
+        method:"POST",
+        data:datosGastos,
+        success:function(r){
+            if(r=='vacio'){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Es necesario llenar todos los campos',
+                    showConfirmButton: false,
+                    timer: 2000
+                  }) 
+                  
+            }else{
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'El Gasto fue registrado exitosamente.',
+                    showConfirmButton: false,
+                    timer: 2000
+                  })
+                  setTimeout(() => {
+                     $formularioGastos.reset();
+                  }, 2000);
+            }
+        }
+    }) 
+ 
+    
+})
