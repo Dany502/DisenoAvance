@@ -70,29 +70,22 @@
             <div class="cards">
                 <div class="card-single ingresos">
                     <div class="tarjeta">
-                        <img src="Img/8.png" width="45px" height="45px"><br>
-                        <span>Ingresos</span>
+                        <p>Q5,000</p>
+                        <span>Ingreso total</span>
                     </div>
                 </div>
 
                 <div class="card-single egresos">
                     <div class="tarjeta">
-                        <img src="Img/8.png" width="45px" height="45px"><br>
-                        <span>Egresos</span>
+                        <p>Q1,000</p>
+                        <span>Egreso total</span>
                     </div>
                 </div>
                 
                 <div class="card-single ganacias">
                     <div class="tarjeta">
-                        <img src="Img/8.png" width="45px" height="45px"><br>
-                        <span>Ganancias</span>
-                    </div>
-                </div>
-
-                <div class="card-single caja">
-                    <div class="tarjeta">
-                        <img src="Img/8.png" width="45px" height="45px"><br>
-                        <span>Caja</span>
+                        <p>Q4,000</p>
+                        <span>Ganancia total</span>
                     </div>
                 </div>
 
