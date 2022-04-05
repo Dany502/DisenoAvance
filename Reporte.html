@@ -55,51 +55,71 @@
                     <small>Empleado</small>
                 </div>
             </div>
-        </header> 
+        </header>
         <main>
             <div class="content-report">
                 <div class="reporte color1">
                     <div>
                         <h4>Reporte del día</h4>
                     </div>
-                    <form id="formDia">
-                        <input type="date" id="dia" name="dia">
+                    <form id="formDia" method="POST" action="Reportes/reporteDia.php" target="_blank">
+                        <input type="date" id="dia" name="dia"><br>
+                        <button class="a">Generar Reporte</button>
                     </form>
-                    <a href="">Generar Reporte</a>
                 </div>
                 <div class="reporte color2">
                     <div>
                         <h4>Reporte de la semana</h4>
                     </div>
-                    <form id="formSemana">
+                    <form id="formSemana"  method="POST" action="Reportes/reporteSemana.php" target="_blank">
                         <label>Inicio:</label>
                         <input type="date" id="semana" name="semana">
                         <label>Final:</label>
-                        <input type="date" id="semana" name="semana">
+                        <input type="date" id="semana" name="semana"><br>
+                        <button class="a">Generar Reporte</button>
                     </form>
-                    <a href="">Generar Reporte</a>
                 </div>
                 <div class="reporte color3">
                     <div>
                         <h4>Reporte del mes</h4>
                     </div>
-                    <form id="formMes">
-                        <input type="date" id="mes" name="mes">
+                    <form id="formMes"  method="POST" action="Reportes/reporteMes.php" target="_blank">
+                        <select name="mes" id="mes">
+                            <option selected>Seleccione el Mes</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select><br>
+                        <button class="a">Generar Reporte</button>
                     </form>
-                    <a href="">Generar Reporte</a>
                 </div>
                 <div class="reporte color4">
                     <div>
                         <h4>Reporte del año</h4>
                     </div>
-                    <form id="formAnio">
-                        <input type="date" id="anio" name="anio">
+                    <form id="formAnio"  method="POST" action="Reportes/reporteAnio.php" target="_blank">
+                        <select name="anio" id="anio">
+                            <option selected>Seleccione el Año</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select><br>
+                        <button class="a">Generar Reporte</button>
                     </form>
-                    <a href="">Generar Reporte</a>
                 </div>
             <div>
         </main>  
     </div>
-   
 </body>
 </html>

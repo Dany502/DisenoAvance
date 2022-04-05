@@ -24,6 +24,7 @@ main {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    text-align: center;
 }
 .reporte h4{
     font-size: 25px;
@@ -37,7 +38,8 @@ main {
 .reporte input{
     font-size: 15px;
 }
-.reporte a{
+
+.reporte a , .a{
     padding: 10px 15px 10px 15px;
     cursor: pointer;
     margin-top: 10px;
