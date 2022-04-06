@@ -58,7 +58,7 @@
         </header>
         <div class="conteo-moneda">
             <div>
-                <form id="forMonedas">
+                <form id="forMonedas" action="Reportes/conteo.php" method="POST" target="_blank">
                     <div class="controlInput">
                         <label>Q0.25:</label>
                         <input type="number" id="moneda1" name="moneda1" autofocus>
@@ -95,8 +95,8 @@
                         <label>Q200:</label>
                         <input type="number" id="moneda9" name="moneda9">
                     </div>
+                    <button id="btnMoneda">Generar Reporte</button> 
                 </form>
-                <button id="btnMoneda">Generar Reporte</button> 
             </div>
         </div>   
     </div>

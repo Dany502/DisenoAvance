@@ -2,22 +2,22 @@
     ob_start();
     include("../conexion/conexion.php");
     //parametro fecha
-    $fecha=$_POST['dia'];
+    $anio=$_POST['anio'];
 
     //Consultas datos
-    $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE fecha='$fecha'";
+    $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE anio='$anio'";
     $respuestaI=mysqli_query($conexion,$sqlIngreso);
     if($row1=$respuestaI->fetch_assoc()){
-        $totalIngresoDia=$row1['ts'];
+        $totalIngresoAnio=$row1['ts'];
     }
     
-    $sqlEgreso="SELECT SUM(total) tg FROM gastos WHERE fecha='$fecha'";
+    $sqlEgreso="SELECT SUM(total) tg FROM gastos WHERE anio='$anio'";
     $respuestaE=mysqli_query($conexion,$sqlEgreso);
     if($row2=$respuestaE->fetch_assoc()){
-        $totalEgresoDia=$row2['tg'];
+        $totalEgresoAnio=$row2['tg'];
     }
     
-    $ganancia=$totalIngresoDia-$totalEgresoDia;
+    $ganancia=$totalIngresoAnio-$totalEgresoAnio;
     $d = date('d') - 1;
     $m = date('m') ;
     $y = date('Y') ;
@@ -29,11 +29,10 @@
 ?>
 
     <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
-    <p>Fecha Dia: <?php echo $fecha?></p>
-    <h3>Ingreso: <?php echo $totalIngresoDia?></h3>
-    <h3>Egreso: <?php echo $totalEgresoDia?></h3>
+    <p>Fecha: <?php echo $fe?></p>
+    <h3>Ingreso: <?php echo $totalIngresoAnio?></h3>
+    <h3>Egreso: <?php echo $totalEgresoAnio?></h3>
     <h3>Ganancia: <?php echo $ganancia?></h3>
-    <p>Fecha php: <?php echo $fe?></p>
     </page>
 
 <?php
