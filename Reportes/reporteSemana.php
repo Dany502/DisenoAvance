@@ -4,6 +4,7 @@
     //parametro fecha
     $fecha1=$_POST['semana1'];
     $fecha2=$_POST['semana2'];
+    $salida="";
 
     //Consultas datos
     $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE fecha BETWEEN '$fecha1' AND '$fecha2'";
@@ -27,14 +28,195 @@
     }else{
         $fe = "$y-$m-$d";
     }
-    
-?>
 
+    list($anio, $mes, $dia) = explode("-",$fecha1);
+    $d=$dia;
+    $di = "$anio-$mes-$d";
+    list($anio2, $mes2, $dia2) = explode("-",$fecha2);
+    $d2=$dia2;
+
+ 
+
+?>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .logo{
+            text-align: center;
+        }
+        .logo img{
+            width: 200px;
+            height: 200px;
+        }
+        .encabezado{
+            text-align: right;
+            padding-top: 15px;
+        }
+        .encabezado h4{
+            margin: 5px;
+        }
+        .title{
+            text-align: center;
+            margin: 25px;
+        }
+        table{
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 18px;
+            margin-left: 0;
+        }
+        .tabla2{
+            margin-left: 90px;
+        }
+        thead th{
+            padding-left: 80px;
+            padding-right: 70px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            background: #45aaf2;
+        }
+        tbody td{
+            padding-left: 70px;
+            padding-right: 70px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #999; 
+            border-top: 1px solid #999; 
+        }
+        .pie{
+            text-align: center;
+            margin-top: 50px;
+        }
+
+    </style>
     <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
-    <p>Fecha Dia: <?php echo $fe?></p>
-    <h3>Ingreso: <?php echo $totalIngresoDia?></h3>
-    <h3>Egreso: <?php echo $totalEgresoDia?></h3>
-    <h3>Ganancia: <?php echo $ganancia?></h3>
+    <div class="logo">
+        <img src="../Img/cenet.png" alt="">
+    </div>
+    <div class="encabezado">
+        <h4><b>Fecha:</b> <?php echo $fe?></h4>
+        <h4><b>Nombre:</b> Alberto Fabricio</h4>
+        <h4><b>Apellido:</b> Cabrera Dueñas</h4>
+    </div>
+    <div class="cuerpo">
+        <div class="title">
+            <h1>Reporte Semanal</h1>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dias</th>
+                        <th>Ingreso</th>
+                        <th>Egreso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $i=1;
+                        //$salida="<p>$di</p>";
+                    
+                        $consulaSe="SELECT SUM(total)totaldia FROM servicios WHERE fecha='$di'";
+                        $resultadoConsulta=mysqli_query($conexion,$consulaSe);
+                        if($row=$resultadoConsulta->fetch_assoc()){
+                            $totaldia=$row['totaldia'];
+                        }
+                        $consulaSe2="SELECT SUM(total)totalgasto FROM gastos WHERE fecha='$di'";
+                        $resultadoConsulta2=mysqli_query($conexion,$consulaSe2);
+                        if($row2=$resultadoConsulta2->fetch_assoc()){
+                            $totaldia2=$row2['totalgasto'];
+                        }
+                        $salida.="<tr>
+                            <td>Lunes</td>
+                            <td>Q$totaldia</td>
+                            <td>Q$totaldia2</td>
+                        </tr>";
+                        while ($d < $d2) {
+                            $i=$i+1;
+                            switch ($i) {
+                                case 1:
+                                    $dias="Lunes";
+                                    break;
+                                case 2:
+                                    $dias="Martes";
+                                    break;
+                                case 3:
+                                    $dias="Miercoles";
+                                    break;
+                                case 4:
+                                    $dias="Jueves";
+                                    break;
+                                case 5:
+                                    $dias="Viernes";
+                                    break;
+                                case 6:
+                                    $dias="Sabado";
+                                    break;
+                                case 7:
+                                    $dias="Domingo";
+                                    break;
+                            }
+                            $d = $d+1;
+                            if($d < 10){
+                            $di = "$anio-$mes-0$d";
+                            //$salida.="<p>$di</p>";
+                            }else{
+                            $di = "$anio-$mes-$d";
+                            //$salida.="<p>$di</p>";
+                            }
+                            //$salida.="$dias";
+                            $consulaSe2="SELECT SUM(total)totalgasto FROM gastos WHERE fecha='$di'";
+                            $resultadoConsulta2=mysqli_query($conexion,$consulaSe2);
+                            if($row2=$resultadoConsulta2->fetch_assoc()){
+                                $totaldia2=$row2['totalgasto'];
+                            }
+                            $consulaSe="SELECT SUM(total) totaldia FROM servicios WHERE fecha='$di'";
+                            $resultadoConsulta=mysqli_query($conexion,$consulaSe);
+                            if($row=$resultadoConsulta->fetch_assoc()){
+                                $totaldia=$row['totaldia'];
+                            }
+                            $salida.="<tr>
+                                <td>$dias</td>
+                                <td>Q$totaldia</td>
+                                <td>Q$totalgasto</td>
+                            </tr>";
+                        }
+                        
+                        
+                        echo $salida;
+                    ?>
+                    
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        <div>
+            <table class="tabla2">
+                <thead>
+                    <tr>
+                        <th>Ingreso</th>
+                        <th>Egreso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Q<?php echo $totalIngresoDia?></td>
+                        <td>Q<?php echo $totalEgresoDia?></td>
+                    </tr>
+                    <tr>
+                        <td><b>Ganancia:</b></td>
+                        <td> Q<?php echo $ganancia?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pie">
+        <p>CENET © Entre Rios el Asintal Retalhuleu</p>
+    </div>
     </page>
 
 <?php
@@ -44,7 +226,7 @@
   use Spipu\Html2Pdf\Html2Pdf;
   try
   {
-    $html2pdf = new HTML2PDF('P', 'A5', 'es', true, 'UTF-8', 3);
+    $html2pdf = new HTML2PDF('P', 'Carta', 'es', true, 'UTF-8', 3);
     $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
     $html2pdf->Output('ReporteSemana.pdf');
