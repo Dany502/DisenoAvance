@@ -29,13 +29,11 @@
         $fe = "$y-$m-$d";
     }
 
-    list($anio, $mes, $dia) = explode("-",$fecha1);
+    /* list($anio, $mes, $dia) = explode("-",$fecha1);
     $d=$dia;
     $di = "$anio-$mes-$d";
     list($anio2, $mes2, $dia2) = explode("-",$fecha2);
-    $d2=$dia2;
-
- 
+    $d2=$dia2; */
 
 ?>
     <style>
@@ -116,27 +114,12 @@
                 </thead>
                 <tbody>
                     <?php
-                        $i=1;
-                        //$salida="<p>$di</p>";
-                    
-                        $consulaSe="SELECT SUM(total)totaldia FROM servicios WHERE fecha='$di'";
-                        $resultadoConsulta=mysqli_query($conexion,$consulaSe);
-                        if($row=$resultadoConsulta->fetch_assoc()){
-                            $totaldia=$row['totaldia'];
-                        }
-                        $consulaSe2="SELECT SUM(total)totalgasto FROM gastos WHERE fecha='$di'";
-                        $resultadoConsulta2=mysqli_query($conexion,$consulaSe2);
-                        if($row2=$resultadoConsulta2->fetch_assoc()){
-                            $totaldia2=$row2['totalgasto'];
-                        }
-                        $salida.="<tr>
-                            <td>Lunes</td>
-                            <td>Q$totaldia</td>
-                            <td>Q$totaldia2</td>
-                        </tr>";
-                        while ($d < $d2) {
-                            $i=$i+1;
-                            switch ($i) {
+                        $fechaInicio=strtotime($fecha1);
+                        $fechaFin=strtotime($fecha2);
+                        for($i=$fechaInicio; $i<=$fechaFin; $i+=86400){
+                            $fechaSeparada = date("Y-m-d", $i);
+                            $s=$s+1;
+                            switch ($s) {
                                 case 1:
                                     $dias="Lunes";
                                     break;
@@ -158,35 +141,30 @@
                                 case 7:
                                     $dias="Domingo";
                                     break;
-                            }
-                            $d = $d+1;
-                            if($d < 10){
-                            $di = "$anio-$mes-0$d";
-                            //$salida.="<p>$di</p>";
-                            }else{
-                            $di = "$anio-$mes-$d";
-                            //$salida.="<p>$di</p>";
-                            }
-                            //$salida.="$dias";
-                            $consulaSe2="SELECT SUM(total)totalgasto FROM gastos WHERE fecha='$di'";
+                                }
+                                
+
+                            $consulaSe2="SELECT SUM(total)totalgasto FROM gastos WHERE fecha='$fechaSeparada'";
                             $resultadoConsulta2=mysqli_query($conexion,$consulaSe2);
                             if($row2=$resultadoConsulta2->fetch_assoc()){
-                                $totaldia2=$row2['totalgasto'];
+                                $totalgasto=$row2['totalgasto'];
                             }
-                            $consulaSe="SELECT SUM(total) totaldia FROM servicios WHERE fecha='$di'";
-                            $resultadoConsulta=mysqli_query($conexion,$consulaSe);
-                            if($row=$resultadoConsulta->fetch_assoc()){
-                                $totaldia=$row['totaldia'];
+
+                            $consulta="SELECT SUM(total) ts FROM servicios WHERE fecha='$fechaSeparada'";
+                            $res=mysqli_query($conexion,$consulta);
+                            if($rw=$res->fetch_assoc()){
+                                $diatotal=$rw['ts'];
+                                $salida.="<tr>
+                                    <td>$dias</td>
+                                    <td>Q$diatotal</td>
+                                    <td>Q$totalgasto</td>
+                                </tr>";
                             }
-                            $salida.="<tr>
-                                <td>$dias</td>
-                                <td>Q$totaldia</td>
-                                <td>Q$totalgasto</td>
-                            </tr>";
                         }
-                        
-                        
                         echo $salida;
+                    
+                    
+                    
                     ?>
                     
                 </tbody>
