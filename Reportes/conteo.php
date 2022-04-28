@@ -32,7 +32,6 @@
     }else{
         $fecha = "$y-$m-$d";
     }
-
     //Consultas datos
     $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE fecha='$fecha'";
     $respuestaI=mysqli_query($conexion,$sqlIngreso);
@@ -49,22 +48,143 @@
     $totalCajaDia=$totalIngresoDia-$totalEgresoDia;
     
 ?>
-
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .logo{
+            text-align: left;
+        }
+        .logo img{
+            width: 150px;
+            height: 150px;
+        }
+        .encabezado{
+            text-align: right;
+            padding-top: -100px;
+        }
+        .encabezado p{
+            margin: 2px;
+        }
+        .title{
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: 35px;
+        }
+        table{
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 17px;
+            margin-left: 70px;
+        }
+        thead th{
+            padding-left: 45px;
+            padding-right: 45px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background: #45aaf2;
+        }
+        tbody td{
+            padding-left: 45px;
+            padding-right: 45px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #999; 
+            border-top: 1px solid #999; 
+        }
+        .pie{
+            text-align: center;
+            margin-top: 140px;
+        }
+        .totales{
+            font-size: 25px;
+            margin-left: 70px;
+        }
+    </style>
     <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
-    <h1>Conteo de Efectivo</h1>
-    <h5>Monedas------------Cantidad------------Total</h5>
-    <p>Q0.25:---------------------<?php echo $modena1?>----------------<?php echo $modena11 ?></p>
-    <p>Q0.50:---------------------<?php echo $modena2?>----------------<?php echo $modena22 ?></p>
-    <p>Q1:------------------------<?php echo $modena3?>----------------<?php echo $modena33 ?></p>
-    <p>Q5:------------------------<?php echo $modena4?>----------------<?php echo $modena44 ?></p>
-    <p>Q10:-----------------------<?php echo $modena5?>----------------<?php echo $modena55 ?></p>
-    <p>Q20:-----------------------<?php echo $modena6?>----------------<?php echo $modena66 ?></p>
-    <p>Q50:-----------------------<?php echo $modena7?>----------------<?php echo $modena77 ?></p>
-    <p>Q100:----------------------<?php echo $modena8?>----------------<?php echo $modena88 ?></p>
-    <p>Q200:----------------------<?php echo $modena9?>----------------<?php echo $modena99 ?></p>
-    <hr>
-    <h5>Total Efectivo: <b>Q<?php echo $total?></b></h5>
-    <p>Total Caja Dia: <?php echo $totalCajaDia ?></p>
+    <div class="logo">
+        <img src="../Img/cenet.png" alt="">
+    </div>
+    <div class="encabezado">
+        <p><b>Fecha:</b> <?php echo $fe?></p>
+        <p>Alberto Fabricio</p>
+        <p>Cabrera Dueñas</p>
+    </div>
+    <div class="cuerpo">
+        <div class="title">
+            <h1>Conteo Efectivo</h1>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Monedas</th>
+                        <th>Cantidad</th>
+                        <th>total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                        <td>Q0.25</td>
+                        <td><?php echo $modena1?></td>
+                        <td><?php echo $modena11 ?></td>
+                   </tr>
+                   <tr>
+                        <td>Q0.50</td>
+                        <td><?php echo $modena2?></td>
+                        <td><?php echo $modena22 ?></td>
+                   </tr>
+                   <tr>
+                        <td>Q1</td>
+                        <td><?php echo $modena3?></td>
+                        <td><?php echo $modena33 ?></td>
+                   </tr>
+                   <tr>
+                        <td>Q5</td>
+                        <td><?php echo $modena4?></td>
+                        <td><?php echo $modena44 ?></td>
+                   </tr>
+                   <tr>
+                        <td>Q10</td>
+                        <td><?php echo $modena5?></td>
+                        <td><?php echo $modena55 ?></td>
+                   </tr>
+                   <tr>
+                        <td>Q20</td>
+                        <td><?php echo $modena6?></td>
+                        <td><?php echo $modena66 ?></td>
+                   </tr>
+                   <tr>
+                        <td>Q50</td>
+                        <td><?php echo $modena7?></td>
+                        <td><?php echo $modena77 ?></td>
+                   </tr>
+                   <tr>
+                        <td>Q100</td>
+                        <td><?php echo $modena8?></td>
+                        <td><?php echo $modena88 ?></td>
+                   </tr>
+                   <tr>
+                        <td>Q200</td>
+                        <td><?php echo $modena9?></td>
+                        <td><?php echo $modena99 ?></td>
+                   </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="totales">
+        <br><hr>
+        <br><br>
+        <p>Total Efectivo: <b>Q<?php echo $total?></b></p><br>
+        <p>Total Caja Día: <b>Q<?php echo $totalCajaDia ?></b></p>
+    </div>
+    <div class="pie">
+        <br><br>
+        <p>CENET © Entre Rios el Asintal Retalhuleu</p>
+    </div>
     
     </page>
 
@@ -75,10 +195,10 @@
   use Spipu\Html2Pdf\Html2Pdf;
   try
   {
-    $html2pdf = new HTML2PDF('P', 'A5', 'es', true, 'UTF-8', 3);
+    $html2pdf = new HTML2PDF('P', 'Carta', 'es', true, 'UTF-8', 3);
     $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-    $html2pdf->Output('ReporteDia.pdf');
+    $html2pdf->Output('ReporteConteo.pdf');
   }
   catch(HTML2PDF_exception $e) {
       echo $e;

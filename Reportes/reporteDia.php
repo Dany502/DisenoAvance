@@ -1,8 +1,21 @@
 <?php
     ob_start();
+    require '../funciones/validarusuario.php';
+    if(!isset($_SESSION['usuario'])){
+        header('location: index_login.php');
+    }
     include("../conexion/conexion.php");
     //parametro fecha
     $fecha=$_POST['dia'];
+    $iduser=$_SESSION['usuario'];
+
+    //Consulta Usuario
+    $sql="SELECT nombre, apellido FROM usuarios Where id=$iduser";
+    $respuesta=mysqli_query($conexion,$sql);
+    if($row=$respuesta->fetch_assoc()){
+        $nombre=$row['nombre'];
+        $apellido=$row['apellido'];
+    }
 
     //Consultas datos
     $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE fecha='$fecha'";
@@ -44,8 +57,9 @@
             text-align: right;
             padding-top: 20px;
         }
-        .encabezado h4{
+        .encabezado p{
             margin: 5px;
+            font-size: 18px;
         }
         .title{
             text-align: center;
@@ -84,9 +98,9 @@
         <img src="../Img/cenet.png" alt="">
     </div>
     <div class="encabezado">
-        <h4><b>Fecha:</b> <?php echo $fecha?></h4>
-        <h4><b>Nombre:</b> Alberto Fabricio</h4>
-        <h4><b>Apellido:</b> Cabrera Dueñas</h4>
+        <p><b>Fecha:</b> <?php echo $fecha?></p>
+        <p><?php echo $nombre ?></p>
+        <p><?php echo $apellido ?></p>
     </div>
     <div class="cuerpo">
         <div class="title">

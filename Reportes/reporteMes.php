@@ -1,8 +1,22 @@
 <?php
     ob_start();
+    require '../funciones/validarusuario.php';
+    if(!isset($_SESSION['usuario'])){
+        header('location: index_login.php');
+    }
     include("../conexion/conexion.php");
     //parametro fecha
     $mes=$_POST['mes'];
+    $salida="";
+    $iduser=$_SESSION['usuario'];
+
+    //Consulta Usuario
+    $sql="SELECT nombre, apellido FROM usuarios Where id=$iduser";
+    $respuesta=mysqli_query($conexion,$sql);
+    if($row=$respuesta->fetch_assoc()){
+        $nombre=$row['nombre'];
+        $apellido=$row['apellido'];
+    }
 
     //Consultas datos
     $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE mes='$mes'";
@@ -26,13 +40,149 @@
     }else{
         $fe = "$y-$m-$d";
     }
-?>
 
+?>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .logo{
+            text-align: left;
+        }
+        .logo img{
+            width: 150px;
+            height: 150px;
+        }
+        .encabezado{
+            text-align: right;
+            padding-top: -100px;
+        }
+        .encabezado p{
+            margin: 2px;
+        }
+        .title{
+            text-align: center;
+            margin-top: -50px;
+            margin-bottom: 15px;
+        }
+        table{
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 10px;
+            margin-left: 120;
+        }
+        .tabla2{
+            margin-left: 180px;
+        }
+        thead th{
+            padding-left: 45px;
+            padding-right: 45px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background: #45aaf2;
+        }
+        tbody td{
+            padding-left: 45px;
+            padding-right: 45px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #999; 
+            border-top: 1px solid #999; 
+        }
+        .pie{
+            text-align: center;
+            margin-top: 50px;
+        }
+
+    </style>
     <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
-    <p>Fecha: <?php echo $fe?></p>
-    <h3>Ingreso: <?php echo $totalIngresoMes?></h3>
-    <h3>Egreso: <?php echo $totalEgresoMes?></h3>
-    <h3>Ganancia: <?php echo $ganancia?></h3>
+    <div class="logo">
+        <img src="../Img/cenet.png" alt="">
+    </div>
+    <div class="encabezado">
+        <p><b>Fecha:</b> <?php echo $fe?></p>
+        <p><?php echo $nombre ?></p>
+        <p><?php echo $apellido ?></p>
+    </div>
+    <div class="cuerpo">
+        <div class="title">
+            <h3>Reporte Mensual</h3>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fechas</th>
+                        <th>Ingreso</th>
+                        <th>Egreso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $inicio = date("Y-$mes-01");
+                        $fin = date("Y-$mes-t");
+                        $fechaInicio=strtotime($inicio);
+                        $fechaFin=strtotime($fin);
+                        for($i=$fechaInicio; $i<=$fechaFin; $i+=86400){
+                            $dias = $dias + 1;
+                            if($dias < 10){
+                                $fechas = "$y-$m-0$dias";
+                            }else{
+                                $fechas = "$y-$m-$dias";
+                            }
+                            $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE dia=$dias";
+                            $respuestaI=mysqli_query($conexion,$sqlIngreso);
+                            if($row1=$respuestaI->fetch_assoc()){
+                                $totalIngresoDias=$row1['ts'];
+                                
+                            }
+                            $sqlEgreso="SELECT SUM(total) tg FROM gastos WHERE dia=$dias";
+                            $respuestaE=mysqli_query($conexion,$sqlEgreso);
+                            if($row2=$respuestaE->fetch_assoc()){
+                                $totalEgresoDias=$row2['tg'];
+                                $salida.="<tr>
+                                    <td>$fechas</td>
+                                    <td>Q$totalIngresoDias</td>
+                                    <td>Q$totalEgresoDias</td>
+                                 </tr>";
+                            }
+                            
+
+                        }
+                        echo $salida;
+                    
+                    ?>
+                    
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        <div>
+            <table class="tabla2">
+                <thead>
+                    <tr>
+                        <th>Ingreso Total</th>
+                        <th>Egreso Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Q<?php echo $totalIngresoMes?></td>
+                        <td>Q<?php echo $totalEgresoMes?></td>
+                    </tr>
+                    <tr>
+                        <td><b>Ganancia:</b></td>
+                        <td> Q<?php echo $ganancia?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pie">
+        <p>CENET © Entre Rios el Asintal Retalhuleu</p>
+    </div>
     </page>
 
 <?php
@@ -42,10 +192,10 @@
   use Spipu\Html2Pdf\Html2Pdf;
   try
   {
-    $html2pdf = new HTML2PDF('P', 'A5', 'es', true, 'UTF-8', 3);
+    $html2pdf = new HTML2PDF('P', 'Carta', 'es', true, 'UTF-8', 3);
     $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-    $html2pdf->Output('ReporteDia.pdf');
+    $html2pdf->Output('ReporteMes.pdf');
   }
   catch(HTML2PDF_exception $e) {
       echo $e;
