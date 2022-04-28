@@ -31,7 +31,7 @@
                 <li><a href="Ingreso-egreso.html"><span><img src="Img/tabla-de-ingresos.png" width="30px" height="30px"></span><span>Ingreso/Egreso</span></a></li>
                 <li><a href="Conteo.html"><span><img src="Img/moneda.png" width="30px" height="30px"></span><span>Conteo de efectivo</span></a></li>
                 <li><a href="Reporte.html" class="active"><span><img src="Img/reporte-anual.png" width="30px" height="30px"></span><span>Reporte</span></a></li>
-                <li><a href="" class="Boton-salir"><span><img src="Img/salida.png" width="30px" height="30px"></span><span>Salir</span></a></li>
+                <li><a href="index_login.php?CerrarSesion=true" class="Boton-salir"><span><img src="Img/salida.png" width="30px" height="30px"></span><span>Salir</span></a></li>
             </ul>
         </div>
     </div>
@@ -51,7 +51,7 @@
             <div class="user-wrapper">
                 <img src="Img/empleados.png" width="40px" height="40px">
                 <div>
-                    <h4>Alberto Hernández Mus</h4>
+                    <h4 id="empleado"></h4>
                     <small>Empleado</small>
                 </div>
             </div>
@@ -86,15 +86,15 @@
                     <form id="formMes"  method="POST" action="Reportes/reporteMes.php" target="_blank">
                         <select name="mes" id="mes">
                             <option selected>Seleccione el Mes</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
+                            <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
                             <option value="10">Octubre</option>
                             <option value="11">Noviembre</option>
                             <option value="12">Diciembre</option>
@@ -121,5 +121,7 @@
             <div>
         </main>  
     </div>
+    <script src="js/jQuery.js"></script>
+    <script src="js/empleado.js"></script>
 </body>
 </html>
