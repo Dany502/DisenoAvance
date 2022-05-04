@@ -135,25 +135,25 @@
                             $s=$s+1;
                             switch ($s) {
                                 case 1:
-                                    $dias="Lunes";
+                                    $dias="Domingo";
                                     break;
                                 case 2:
-                                    $dias="Martes";
+                                    $dias="Lunes";
                                     break;
                                 case 3:
-                                    $dias="Miercoles";
+                                    $dias="Martes";
                                     break;
                                 case 4:
-                                    $dias="Jueves";
+                                    $dias="Miercoles";
                                     break;
                                 case 5:
-                                    $dias="Viernes";
+                                    $dias="Jueves";
                                     break;
                                 case 6:
-                                    $dias="Sabado";
+                                    $dias="Viernes";
                                     break;
                                 case 7:
-                                    $dias="Domingo";
+                                    $dias="Sabado";
                                     break;
                                 }
                                 

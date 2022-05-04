@@ -64,7 +64,7 @@
         }
         .title{
             text-align: center;
-            margin-top: -50px;
+            margin-top: -70px;
             margin-bottom: 15px;
         }
         table{
@@ -128,17 +128,17 @@
                         for($i=$fechaInicio; $i<=$fechaFin; $i+=86400){
                             $dias = $dias + 1;
                             if($dias < 10){
-                                $fechas = "$y-$m-0$dias";
+                                $fechas = "$y-$mes-0$dias";
                             }else{
-                                $fechas = "$y-$m-$dias";
+                                $fechas = "$y-$mes-$dias";
                             }
-                            $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE dia=$dias";
+                            $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE dia=$dias AND mes=$mes";
                             $respuestaI=mysqli_query($conexion,$sqlIngreso);
                             if($row1=$respuestaI->fetch_assoc()){
                                 $totalIngresoDias=$row1['ts'];
                                 
                             }
-                            $sqlEgreso="SELECT SUM(total) tg FROM gastos WHERE dia=$dias";
+                            $sqlEgreso="SELECT SUM(total) tg FROM gastos WHERE dia=$dias AND mes=$mes";
                             $respuestaE=mysqli_query($conexion,$sqlEgreso);
                             if($row2=$respuestaE->fetch_assoc()){
                                 $totalEgresoDias=$row2['tg'];
