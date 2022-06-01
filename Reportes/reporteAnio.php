@@ -31,11 +31,16 @@
     }
     
     $ganancia=$totalIngresoAnio-$totalEgresoAnio;
-    $d = date('d') - 1;
-    $m = date('m') ;
+    $d = date('t') + 1;
+    $m = date('m') - 1;
     $y = date('Y') ;
     if($d < 10){
         $fe = "$y-$m-0$d";
+    }else{
+        $fe = "$y-$m-$d";
+    }
+    if($m < 10){
+        $fe = "$y-0$m-$d";
     }else{
         $fe = "$y-$m-$d";
     }

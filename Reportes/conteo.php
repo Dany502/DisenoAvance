@@ -24,22 +24,27 @@
 
     $total=$modena11+$modena22+$modena33+$modena44+$modena55+$modena66+$modena77+$modena88+$modena99;
     
-    $d = date('d') - 1;
-    $m = date('m') ;
+    $d = date('t') + 1;
+    $m = date('m') - 1;
     $y = date('Y') ;
     if($d < 10){
-        $fecha = "$y-$m-0$d";
+        $fe = "$y-$m-0$d";
     }else{
-        $fecha = "$y-$m-$d";
+        $fe = "$y-$m-$d";
+    }
+    if($m < 10){
+        $fe = "$y-0$m-$d";
+    }else{
+        $fe = "$y-$m-$d";
     }
     //Consultas datos
-    $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE fecha='$fecha'";
+    $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE fecha='$fe'";
     $respuestaI=mysqli_query($conexion,$sqlIngreso);
     if($row1=$respuestaI->fetch_assoc()){
         $totalIngresoDia=$row1['ts'];
     }
     
-    $sqlEgreso="SELECT SUM(total) tg FROM gastos WHERE fecha='$fecha'";
+    $sqlEgreso="SELECT SUM(total) tg FROM gastos WHERE fecha='$fe'";
     $respuestaE=mysqli_query($conexion,$sqlEgreso);
     if($row2=$respuestaE->fetch_assoc()){
         $totalEgresoDia=$row2['tg'];

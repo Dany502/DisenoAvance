@@ -32,14 +32,20 @@
     }
     
     $ganancia=$totalIngresoMes-$totalEgresoMes;
-    $d = date('d') - 1;
-    $m = date('m') ;
+    $d = date('t') + 1;
+    $m = date('m') - 1;
     $y = date('Y') ;
     if($d < 10){
         $fe = "$y-$m-0$d";
     }else{
         $fe = "$y-$m-$d";
     }
+    if($m < 10){
+        $fe = "$y-0$m-$d";
+    }else{
+        $fe = "$y-$m-$d";
+    }
+    
 
 ?>
     <style>
@@ -122,7 +128,7 @@
                 <tbody>
                     <?php
                         $inicio = date("Y-$mes-01");
-                        $fin = date("Y-$mes-t");
+                        $fin = date("Y-$mes-$d");
                         $fechaInicio=strtotime($inicio);
                         $fechaFin=strtotime($fin);
                         for($i=$fechaInicio; $i<=$fechaFin; $i+=86400){
@@ -132,6 +138,8 @@
                             }else{
                                 $fechas = "$y-$mes-$dias";
                             }
+                            if($dias)
+                            
                             $sqlIngreso="SELECT SUM(total) ts FROM servicios WHERE dia=$dias AND mes=$mes";
                             $respuestaI=mysqli_query($conexion,$sqlIngreso);
                             if($row1=$respuestaI->fetch_assoc()){
